@@ -1,43 +1,51 @@
-Given a sentence, __s__, print each word of the sentence in a new line.
+# 13 - Printing Tokens
 
-Input Format
+Given a sentence, _`s`_, print each word of the sentence in a new line.
 
-The first and only line contains a sentence, __s__.
+### Input Format
+
+The first and only line contains a sentence, _`s`_.
 
 Constraints
 
-__1 <= len(s) <= 1000__
+_`1 <= len(s) <= 1000`_
 
-Output Format
+### Output Format
 
 Print each word of the sentence in a new line.
 
-Sample Input 0
-
+### Sample Input 0
+````
 This is C 
-Sample Output 0
-
+````
+### Sample Output 0
+````
 This
 is
 C
-Explanation 0
+````
+### Explanation 0
 
 In the given string, there are three words ["This", "is", "C"]. We have to print each of these words in a new line.
 
-Sample Input 1
-
+### Sample Input 1
+````
 Learning C is fun
-Sample Output 1
-
+````
+### Sample Output 1
+````
 Learning
 C
 is
 fun
-Sample Input 2
-
+````
+### Sample Input 2
+````
 How is that
-Sample Output 2
-
+````
+### Sample Output 2
+````
 How
 is
 that
+````

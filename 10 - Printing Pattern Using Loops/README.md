@@ -1,5 +1,7 @@
-Print a pattern of numbers from __1__ to __n__ as shown below. Each of the numbers is separated by a single space.
-``
+# 10 - Printing Pattern Using Loops
+
+Print a pattern of numbers from __1__ to `n` as shown below. Each of the numbers is separated by a single space.
+````
 	4 4 4 4 4 4 4
 	4 3 3 3 3 3 4
 	4 3 2 2 2 3 4
@@ -7,25 +9,27 @@ Print a pattern of numbers from __1__ to __n__ as shown below. Each of the numbe
 	4 3 2 2 2 3 4
 	4 3 3 3 3 3 4
 	4 4 4 4 4 4 4
-``
-Input Format
+````
+### Input Format
 
-The input will contain a single integer __n__.
+The input will contain a single integer `n`.
 
-Sample Input 0
-
+### Sample Input 0
+````
 2
-Sample Output 0
-``
+````
+### Sample Output 0
+````
 2 2 2
 2 1 2
 2 2 2
-``
-Sample Input 1
-
+````
+### Sample Input 1
+````
 5
-Sample Output 1
-``
+````
+### Sample Output 1
+````
 5 5 5 5 5 5 5 5 5
 5 4 4 4 4 4 4 4 5
 5 4 3 3 3 3 3 4 5
@@ -35,12 +39,13 @@ Sample Output 1
 5 4 3 3 3 3 3 4 5
 5 4 4 4 4 4 4 4 5
 5 5 5 5 5 5 5 5 5
-``
-Sample Input 2
-
+````
+### Sample Input 2
+````
 7
-Sample Output 2
-``
+````
+### Sample Output 2
+````
 7 7 7 7 7 7 7 7 7 7 7 7 7
 7 6 6 6 6 6 6 6 6 6 6 6 7
 7 6 5 5 5 5 5 5 5 5 5 6 7
@@ -54,4 +59,4 @@ Sample Output 2
 7 6 5 5 5 5 5 5 5 5 5 6 7
 7 6 6 6 6 6 6 6 6 6 6 6 7
 7 7 7 7 7 7 7 7 7 7 7 7 7
-``
+````

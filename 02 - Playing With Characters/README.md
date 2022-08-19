@@ -1,43 +1,48 @@
-Objective
+# 02 - Playing With Characters
 
-This challenge will help you to learn how to take a character, a string and a sentence as input in C.
+### Objective
 
-To take a single character __ch__ as input, you can use scanf("%c", &ch ); and printf("%c", ch) writes a character specified by the argument char to stdout
-
+This challenge will help you to learn how to take a character, a string and a sentence as input in C. <br>
+To take a single character _ch_ as input, you can use __scanf("%c", &ch );__ and __printf("%c", ch)__ writes a character specified by the argument char to stdout
+```
 char ch;
 scanf("%c", &ch);
 printf("%c", ch);
-This piece of code prints the character __ch__.
+```
+This piece of code prints the character _ch_.
 
-You can take a string as input in C using scanf(“%s”, s). But, it accepts string only until it finds the first space.
+You can take a string as input in C using __scanf(“%s”, s)__. But, it accepts string only until it finds the first space.
 
-In order to take a line as input, you can use scanf("%[^\n]%*c", s); where __s__ is defined as char s[MAX_LEN] where __MAX_LEN__ is the maximum size of __s__. Here, [] is the scanset character. ^\n stands for taking input until a newline isn't encountered. Then, with this %*c, it reads the newline character and here, the used * indicates that this newline character is discarded.
+In order to take a line as input, you can use __scanf("%[^\n]%\*c", s);__ where _s_ is defined as __char s[MAX_LEN]__ where _MAX_LEN_ is the maximum size of _s_. Here, __[]__ is the scanset character. __^\n__ stands for taking input until a newline isn't encountered. Then, with this __%*c__, it reads the newline character and here, the used * indicates that this newline character is discarded.
 
-Note: The statement: scanf("%[^\n]%*c", s); will not work because the last statement will read a newline character, \n, from the previous line. This can be handled in a variety of ways. One way is to use scanf("\n"); before the last statement.
+__Note__: The statement: __scanf("%[^\n]%*c", s);__ will not work because the last statement will read a newline character, \n, from the previous line. This can be handled in a variety of ways. One way is to use __scanf("\n");__ before the last statement.
 
-Task
+### Task
 
 You have to print the character, __ch__, in the first line. Then print __s__ in next line. In the last line print the sentence, __sen__.
 
-Input Format
+### Input Format
 
-First, take a character, __ch__ as input.
-Then take the string, __s__ as input.
-Lastly, take the sentence __sen__ as input.
+First, take a character, _ch_ as input.<br>
+Then take the string, _s_ as input.<br>
+Lastly, take the sentence _sen_ as input.<br>
 
-Output Format
+### Output Format
 
-Print three lines of output. The first line prints the character, __ch__.
-The second line prints the string, __s__.
-The third line prints the sentence, __sen__.
+Print three lines of output. The first line prints the character, _ch_.<br>
+The second line prints the string, _s_.<br>
+The third line prints the sentence, _sen_.<br>
 
-Sample Input 0
-
+### Sample Input 0
+```
 C
 Language
 Welcome To C!!
 Sample Output 0
-
+```
+### Sample Output 0
+```
 C
 Language
 Welcome To C!!
+```
