@@ -12,35 +12,59 @@
 char* readline();
 char* ltrim(char*);
 char* rtrim(char*);
+char** split_string(char*);
 
 int parse_int(char*);
 
 /*
- * Complete the 'staircase' function below.
+ * Complete the 'birthdayCakeCandles' function below.
  *
- * The function accepts INTEGER n as parameter.
+ * The function is expected to return an INTEGER.
+ * The function accepts INTEGER_ARRAY candles as parameter.
  */
 
-void	staircase(int n)
+int	birthdayCakeCandles(int candles_count, int* candles)
 {
+	int		tallest_candle;
+	int		tallest_candle_count;
 	int		i;
-	int		j;
 
-	for (i = 0; i < n; i++)
+	tallest_candle = INT32_MIN;
+	tallest_candle_count = 0;
+	for (i = 0; i < candles_count; i++)
 	{
-		for (j = 0; j < n - i - 1; j++)
-			printf(" ");
-		for (; j < n; j++)
-			printf("#");
-		printf("\n");
+		if (candles[i] > tallest_candle)
+		{
+			tallest_candle = candles[i];
+			tallest_candle_count = 1;
+		}
+		else if (candles[i] == tallest_candle)
+			tallest_candle_count++;
 	}
+	return (tallest_candle_count);
 }
 
 int main()
 {
-	int n = parse_int(ltrim(rtrim(readline())));
+	FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
-	staircase(n);
+	int candles_count = parse_int(ltrim(rtrim(readline())));
+
+	char** candles_temp = split_string(rtrim(readline()));
+
+	int* candles = malloc(candles_count * sizeof(int));
+
+	for (int i = 0; i < candles_count; i++) {
+		int candles_item = parse_int(*(candles_temp + i));
+
+		*(candles + i) = candles_item;
+	}
+
+	int result = birthdayCakeCandles(candles_count, candles);
+
+	fprintf(fptr, "%d\n", result);
+
+	fclose(fptr);
 
 	return 0;
 }
@@ -131,6 +155,27 @@ char* rtrim(char* str) {
 	*(end + 1) = '\0';
 
 	return str;
+}
+
+char** split_string(char* str) {
+	char** splits = NULL;
+	char* token = strtok(str, " ");
+
+	int spaces = 0;
+
+	while (token) {
+		splits = realloc(splits, sizeof(char*) * ++spaces);
+
+		if (!splits) {
+			return splits;
+		}
+
+		splits[spaces - 1] = token;
+
+		token = strtok(NULL, " ");
+	}
+
+	return splits;
 }
 
 int parse_int(char* str) {
