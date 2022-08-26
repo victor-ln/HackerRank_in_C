@@ -17,33 +17,26 @@ char** split_string(char*);
 int parse_int(char*);
 
 /*
- * Complete the 'minimumAbsoluteDifference' function below.
+ * Complete the 'marcsCakewalk' function below.
  *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts INTEGER_ARRAY calorie as parameter.
  */
 
 int	cmpfunc(const void * a, const void * b) {
-	return (*(int*)a - *(int*)b);
+	return (*(int*)a < *(int*)b);
 }
 
-int	minimumAbsoluteDifference(int arr_count, int* arr)
+long	marcsCakewalk(int calorie_count, int* calorie)
 {
 	int		i;
-	int		min_diff;
-	int		min_diff_tmp;
-	
-	i = 0;
-	min_diff = INT32_MAX;
-	qsort(arr, arr_count, sizeof(int), cmpfunc);
-	while (i < arr_count - 1)
-	{
-		min_diff_tmp = abs(arr[i] - arr[i + 1]);
-		if (min_diff_tmp < min_diff)
-			min_diff = min_diff_tmp;
-		i++;
-	}
-	return (min_diff);
+	long	miles;
+
+	miles = 0;
+	qsort(calorie, calorie_count, sizeof(int), cmpfunc);
+	for (i = 0; i < calorie_count; i++)
+		miles += pow(2, i) * calorie[i];
+	return (miles);
 }
 
 int main()
@@ -52,18 +45,19 @@ int main()
 
 	int n = parse_int(ltrim(rtrim(readline())));
 
-	char** arr_temp = split_string(rtrim(readline()));
+	char** calorie_temp = split_string(rtrim(readline()));
 
-	int* arr = malloc(n * sizeof(int));
+	int* calorie = malloc(n * sizeof(int));
 
 	for (int i = 0; i < n; i++) {
-		int arr_item = parse_int(*(arr_temp + i));
-		*(arr + i) = arr_item;
+		int calorie_item = parse_int(*(calorie_temp + i));
+
+		*(calorie + i) = calorie_item;
 	}
 
-	int result = minimumAbsoluteDifference(n, arr);
+	long result = marcsCakewalk(n, calorie);
 
-	fprintf(fptr, "%d\n", result);
+	fprintf(fptr, "%ld\n", result);
 
 	fclose(fptr);
 

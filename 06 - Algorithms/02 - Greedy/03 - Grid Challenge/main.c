@@ -12,58 +12,73 @@
 char* readline();
 char* ltrim(char*);
 char* rtrim(char*);
-char** split_string(char*);
 
 int parse_int(char*);
 
 /*
- * Complete the 'minimumAbsoluteDifference' function below.
+ * Complete the 'gridChallenge' function below.
  *
- * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function is expected to return a STRING.
+ * The function accepts STRING_ARRAY grid as parameter.
+ */
+
+/*
+ * To return the string from the function, you should either do static allocation or dynamic allocation
+ *
+ * For example,
+ * char* return_string_using_static_allocation() {
+ *	 static char s[] = "static allocation of string";
+ *
+ *	 return s;
+ * }
+ *
+ * char* return_string_using_dynamic_allocation() {
+ *	 char* s = malloc(100 * sizeof(char));
+ *
+ *	 s = "dynamic allocation of string";
+ *
+ *	 return s;
+ * }
+ *
  */
 
 int	cmpfunc(const void * a, const void * b) {
-	return (*(int*)a - *(int*)b);
+	return (*(char*)a < *(char*)b);
 }
-
-int	minimumAbsoluteDifference(int arr_count, int* arr)
+ 
+char* gridChallenge(int grid_count, char** grid)
 {
 	int		i;
-	int		min_diff;
-	int		min_diff_tmp;
-	
-	i = 0;
-	min_diff = INT32_MAX;
-	qsort(arr, arr_count, sizeof(int), cmpfunc);
-	while (i < arr_count - 1)
-	{
-		min_diff_tmp = abs(arr[i] - arr[i + 1]);
-		if (min_diff_tmp < min_diff)
-			min_diff = min_diff_tmp;
-		i++;
-	}
-	return (min_diff);
+
+	for (i = 0; i < grid_count; i++)
+		qsort(grid[i], strlen(grid[i]), sizeof(char), cmpfunc);
+	for (i = 0; i < grid_count - 1; i++)
+		if (strcmp(grid[i], grid[i + 1]) > 0)
+			return ("NO");
+	return ("YES");
 }
 
 int main()
 {
 	FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
-	int n = parse_int(ltrim(rtrim(readline())));
+	int t = parse_int(ltrim(rtrim(readline())));
 
-	char** arr_temp = split_string(rtrim(readline()));
+	for (int t_itr = 0; t_itr < t; t_itr++) {
+		int n = parse_int(ltrim(rtrim(readline())));
 
-	int* arr = malloc(n * sizeof(int));
+		char** grid = malloc(n * sizeof(char*));
 
-	for (int i = 0; i < n; i++) {
-		int arr_item = parse_int(*(arr_temp + i));
-		*(arr + i) = arr_item;
+		for (int i = 0; i < n; i++) {
+			char* grid_item = readline();
+
+			*(grid + i) = grid_item;
+		}
+
+		char* result = gridChallenge(n, grid);
+
+		fprintf(fptr, "%s\n", result);
 	}
-
-	int result = minimumAbsoluteDifference(n, arr);
-
-	fprintf(fptr, "%d\n", result);
 
 	fclose(fptr);
 
@@ -156,27 +171,6 @@ char* rtrim(char* str) {
 	*(end + 1) = '\0';
 
 	return str;
-}
-
-char** split_string(char* str) {
-	char** splits = NULL;
-	char* token = strtok(str, " ");
-
-	int spaces = 0;
-
-	while (token) {
-		splits = realloc(splits, sizeof(char*) * ++spaces);
-
-		if (!splits) {
-			return splits;
-		}
-
-		splits[spaces - 1] = token;
-
-		token = strtok(NULL, " ");
-	}
-
-	return splits;
 }
 
 int parse_int(char* str) {

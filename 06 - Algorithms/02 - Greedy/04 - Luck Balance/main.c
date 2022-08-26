@@ -17,51 +17,83 @@ char** split_string(char*);
 int parse_int(char*);
 
 /*
- * Complete the 'minimumAbsoluteDifference' function below.
+ * Complete the 'luckBalance' function below.
  *
  * The function is expected to return an INTEGER.
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function accepts following parameters:
+ *  1. INTEGER k
+ *  2. 2D_INTEGER_ARRAY contests
  */
 
+typedef struct s_contests
+{
+	bool	is_important;
+	int		contest_luck;
+}	t_contests;
+
 int	cmpfunc(const void * a, const void * b) {
-	return (*(int*)a - *(int*)b);
+	const t_contests  *a_s;
+	const t_contests  *b_s;
+
+	a_s = a;
+	b_s = b;
+	return (a_s->contest_luck - b_s->contest_luck);
 }
 
-int	minimumAbsoluteDifference(int arr_count, int* arr)
+int	luckBalance(int k, int contests_rows, int contests_columns, int** contests)
 {
-	int		i;
-	int		min_diff;
-	int		min_diff_tmp;
-	
-	i = 0;
-	min_diff = INT32_MAX;
-	qsort(arr, arr_count, sizeof(int), cmpfunc);
-	while (i < arr_count - 1)
-	{
-		min_diff_tmp = abs(arr[i] - arr[i + 1]);
-		if (min_diff_tmp < min_diff)
-			min_diff = min_diff_tmp;
-		i++;
+	t_contests		*contest_s;
+	int				can_lose;
+	int				max_luck;
+	int				i;
+
+	can_lose = 0;
+	max_luck = 0;
+	contest_s = malloc(sizeof(t_contests) * contests_rows);
+	for (i = 0; i < contests_rows; i++) {
+		contest_s[i].contest_luck = contests[i][0];
+		contest_s[i].is_important = contests[i][1];
+		max_luck += contest_s[i].contest_luck;
+		if (contest_s[i].is_important)
+			can_lose++;
 	}
-	return (min_diff);
+	qsort(contest_s, contests_rows, sizeof(t_contests), cmpfunc);
+	can_lose -= k;
+	for (i = 0; i < contests_rows; i++) {
+		if (can_lose > 0 && contest_s[i].is_important) {
+			max_luck -= (contest_s[i].contest_luck << 1);
+			can_lose--;
+		}
+	}
+	free(contest_s);
+	return (max_luck);
 }
 
 int main()
 {
 	FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
-	int n = parse_int(ltrim(rtrim(readline())));
+	char** first_multiple_input = split_string(rtrim(readline()));
 
-	char** arr_temp = split_string(rtrim(readline()));
+	int n = parse_int(*(first_multiple_input + 0));
 
-	int* arr = malloc(n * sizeof(int));
+	int k = parse_int(*(first_multiple_input + 1));
+
+	int** contests = malloc(n * sizeof(int*));
 
 	for (int i = 0; i < n; i++) {
-		int arr_item = parse_int(*(arr_temp + i));
-		*(arr + i) = arr_item;
+		*(contests + i) = malloc(2 * (sizeof(int)));
+
+		char** contests_item_temp = split_string(rtrim(readline()));
+
+		for (int j = 0; j < 2; j++) {
+			int contests_item = parse_int(*(contests_item_temp + j));
+
+			*(*(contests + i) + j) = contests_item;
+		}
 	}
 
-	int result = minimumAbsoluteDifference(n, arr);
+	int result = luckBalance(k, n, 2, contests);
 
 	fprintf(fptr, "%d\n", result);
 
